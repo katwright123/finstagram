@@ -86,13 +86,18 @@ post '/finstagram_posts' do
     redirect(to('/'))
     else
     erb(:"finstagram_posts/new")
-  end
-    post '/likes' do
+  end    
+end
+post '/likes' do
         finstagram_post_id = params[:finstagram_post_id]
 
     like = Like.new({ finstagram_post_id: finstagram_post_id, user_id: current_user.id })
     like.save
 
     redirect(back)
-  end
+end
+  delete '/likes/:id' do
+  like = Like.find(params[:id])
+  like.destroy
+  redirect(back)
 end
